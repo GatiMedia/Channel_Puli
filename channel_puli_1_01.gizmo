@@ -1,0 +1,222 @@
+Group {
+ name Channel_Puli
+ tile_color 0xffae53ff
+ selected true
+ xpos 180
+ ypos -82
+ addUserKnob {20 User}
+ addUserKnob {26 info_title l Information}
+ addUserKnob {26 info l "" +STARTLINE T "The node automacially sends the alpha\nvalue to the channel that is the input`s\nname and keeps the incoming alpha\nvalue on the alpha channel combined."}
+ addUserKnob {26 cr_ch l "Create new channels"}
+ addUserKnob {41 out l "Red to" t "Allows you to shuffle the `alpha` on the `Red` input to a different channel. " T ShuffleCopy_r.out}
+ addUserKnob {41 out_1 l "Green to" t "Allows you to shuffle the `alpha` on the `Green` input to a different channel. " T ShuffleCopy_g.out}
+ addUserKnob {41 out_2 l "Blue to" t "Allows you to shuffle the `alpha` on the `Blue` input to a different channel. " T ShuffleCopy_b.out}
+ addUserKnob {6 rem_alpha l "Remove Alpha" t "Allows you to remove the `alpha` value." +STARTLINE}
+ addUserKnob {6 rem_rgb l "Remove RGB" t "Allows you to remove the `rgb` value." +STARTLINE}
+ addUserKnob {26 layer_cs l "Layer Contact Sheet"}
+ addUserKnob {6 show_lcs l "Show in Layer Contact Sheet" t "Allows you to turn on the Layer Contact Sheet view." +STARTLINE}
+ addUserKnob {41 showLayerNames l "Show Layer Names" t "Allows you to turn on the names of the layers." T LayerContactSheet.showLayerNames}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 TEXT l "" +STARTLINE T "<font color=#808080 size=\"5\" >1.01 version</font>"}
+ addUserKnob {26 HeadlineB l "" +STARTLINE T "<font color=#808080 size=\"2\">Channel Puli© by Attila Gasparetz</font>"}
+}
+ BackdropNode {
+  inputs 0
+  tile_color 0x777777ff
+  label <center>Inputs
+  note_font_size 42
+  xpos 127
+  ypos -734
+  bdwidth 406
+  bdheight 124
+ }
+ Input {
+  inputs 0
+  name Blue
+  tile_color 0x3fffff
+  xpos 400
+  ypos -658
+ }
+ Dot {
+  name Dot3
+  xpos 434
+  ypos -342
+ }
+set N9dc4ae00 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue alpha
+  name Shuffle_b
+  tile_color 0x3fffff
+  xpos 400
+  ypos 14
+ }
+set N9dc4aa80 [stack 0]
+push 0
+ Input {
+  inputs 0
+  name Green
+  tile_color 0x1fff00ff
+  xpos 290
+  ypos -658
+  number 1
+ }
+ Dot {
+  name Dot2
+  xpos 324
+  ypos -390
+ }
+set N9dc4a380 [stack 0]
+ Shuffle {
+  red black
+  green alpha
+  blue black
+  name Shuffle_g
+  tile_color 0x1fff00ff
+  xpos 290
+  ypos -58
+ }
+set N9dc4a000 [stack 0]
+ Input {
+  inputs 0
+  name Red
+  tile_color 0xff0000ff
+  xpos 180
+  ypos -658
+  number 2
+ }
+ Dot {
+  name Dot1
+  xpos 214
+  ypos -438
+ }
+set N9dc77880 [stack 0]
+ Shuffle {
+  red alpha
+  green black
+  blue black
+  name Shuffle_r
+  tile_color 0xff0000ff
+  xpos 180
+  ypos -130
+ }
+set N9dc77500 [stack 0]
+ Merge2 {
+  inputs 3+1
+  operation plus
+  name Merge_channel
+  tile_color 0x777777ff
+  label "\[value operation]"
+  note_font "Verdana Bold"
+  xpos 290
+  ypos 105
+ }
+push $N9dc4aa80
+push $N9dc4a000
+push $N9dc77500
+push $N9dc4ae00
+push $N9dc4a380
+push $N9dc77880
+ Constant {
+  inputs 0
+  channels rgb
+  name base
+  xpos 840
+  ypos -633
+ }
+ ShuffleCopy {
+  inputs 2
+  red alpha
+  name ShuffleCopy_r
+  tile_color 0xff0000ff
+  label "\[value out]"
+  xpos 840
+  ypos -448
+ }
+ ShuffleCopy {
+  inputs 2
+  green alpha
+  name ShuffleCopy_g
+  tile_color 0x1fff00ff
+  label "\[value out]"
+  xpos 840
+  ypos -400
+ }
+ ShuffleCopy {
+  inputs 2
+  blue alpha
+  name ShuffleCopy_b
+  tile_color 0x3fffff
+  label "\[value out]"
+  note_font Verdana
+  xpos 840
+  ypos -351
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 rgba.red
+  name Copy_r
+  tile_color 0xff0000ff
+  xpos 840
+  ypos -136
+ }
+ Copy {
+  inputs 2
+  from0 rgba.green
+  to0 rgba.green
+  name Copy_g
+  tile_color 0x1fff00ff
+  xpos 840
+  ypos -64
+ }
+ Copy {
+  inputs 2
+  from0 rgba.blue
+  to0 rgba.blue
+  name Copy_b
+  tile_color 0x3fffff
+  xpos 840
+  ypos 8
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy4
+  tile_color 0xaaaaaaff
+  xpos 840
+  ypos 104
+ }
+ Remove {
+  channels alpha
+  name Remove_a
+  tile_color 0xaaaaaaff
+  xpos 840
+  ypos 224
+  disable {{"(parent.rem_alpha) == 0"}}
+ }
+ Remove {
+  channels rgb
+  name Remove_rgb
+  tile_color 0xaaaaaaff
+  xpos 840
+  ypos 326
+  disable {{"(parent.rem_rgb) == 0"}}
+ }
+ LayerContactSheet {
+  name LayerContactSheet
+  selected true
+  xpos 840
+  ypos 398
+  disable {{"(parent.show_lcs) == 0"}}
+ }
+ Output {
+  name Output1
+  xpos 840
+  ypos 470
+ }
+end_group
+
+
