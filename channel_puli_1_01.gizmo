@@ -25,6 +25,7 @@ Group {
   tile_color 0x777777ff
   label <center>Inputs
   note_font_size 42
+  selected true
   xpos 127
   ypos -734
   bdwidth 406
@@ -34,13 +35,15 @@ Group {
   inputs 0
   name Blue
   tile_color 0x3fffff
+  selected true
   xpos 400
   ypos -658
  }
  Dot {
   name Dot3
+  selected true
   xpos 434
-  ypos -342
+  ypos -294
  }
 set N9dc4ae00 [stack 0]
  Shuffle {
@@ -49,6 +52,7 @@ set N9dc4ae00 [stack 0]
   blue alpha
   name Shuffle_b
   tile_color 0x3fffff
+  selected true
   xpos 400
   ypos 14
  }
@@ -58,14 +62,16 @@ push 0
   inputs 0
   name Green
   tile_color 0x1fff00ff
+  selected true
   xpos 290
   ypos -658
   number 1
  }
  Dot {
   name Dot2
+  selected true
   xpos 324
-  ypos -390
+  ypos -342
  }
 set N9dc4a380 [stack 0]
  Shuffle {
@@ -74,6 +80,7 @@ set N9dc4a380 [stack 0]
   blue black
   name Shuffle_g
   tile_color 0x1fff00ff
+  selected true
   xpos 290
   ypos -58
  }
@@ -82,14 +89,16 @@ set N9dc4a000 [stack 0]
   inputs 0
   name Red
   tile_color 0xff0000ff
+  selected true
   xpos 180
   ypos -658
   number 2
  }
  Dot {
   name Dot1
+  selected true
   xpos 214
-  ypos -438
+  ypos -390
  }
 set N9dc77880 [stack 0]
  Shuffle {
@@ -98,6 +107,7 @@ set N9dc77880 [stack 0]
   blue black
   name Shuffle_r
   tile_color 0xff0000ff
+  selected true
   xpos 180
   ypos -130
  }
@@ -109,6 +119,7 @@ set N9dc77500 [stack 0]
   tile_color 0x777777ff
   label "\[value operation]"
   note_font "Verdana Bold"
+  selected true
   xpos 290
   ypos 105
  }
@@ -122,8 +133,10 @@ push $N9dc77880
   inputs 0
   channels rgb
   name base
+  selected true
   xpos 840
-  ypos -633
+  ypos -658
+  postage_stamp false
  }
  ShuffleCopy {
   inputs 2
@@ -131,8 +144,9 @@ push $N9dc77880
   name ShuffleCopy_r
   tile_color 0xff0000ff
   label "\[value out]"
+  selected true
   xpos 840
-  ypos -448
+  ypos -400
  }
  ShuffleCopy {
   inputs 2
@@ -140,8 +154,9 @@ push $N9dc77880
   name ShuffleCopy_g
   tile_color 0x1fff00ff
   label "\[value out]"
+  selected true
   xpos 840
-  ypos -400
+  ypos -352
  }
  ShuffleCopy {
   inputs 2
@@ -150,8 +165,9 @@ push $N9dc77880
   tile_color 0x3fffff
   label "\[value out]"
   note_font Verdana
+  selected true
   xpos 840
-  ypos -351
+  ypos -303
  }
  Copy {
   inputs 2
@@ -159,6 +175,7 @@ push $N9dc77880
   to0 rgba.red
   name Copy_r
   tile_color 0xff0000ff
+  selected true
   xpos 840
   ypos -136
  }
@@ -168,6 +185,7 @@ push $N9dc77880
   to0 rgba.green
   name Copy_g
   tile_color 0x1fff00ff
+  selected true
   xpos 840
   ypos -64
  }
@@ -177,6 +195,7 @@ push $N9dc77880
   to0 rgba.blue
   name Copy_b
   tile_color 0x3fffff
+  selected true
   xpos 840
   ypos 8
  }
@@ -186,6 +205,7 @@ push $N9dc77880
   to0 rgba.alpha
   name Copy4
   tile_color 0xaaaaaaff
+  selected true
   xpos 840
   ypos 104
  }
@@ -193,6 +213,7 @@ push $N9dc77880
   channels alpha
   name Remove_a
   tile_color 0xaaaaaaff
+  selected true
   xpos 840
   ypos 224
   disable {{"(parent.rem_alpha) == 0"}}
@@ -201,6 +222,7 @@ push $N9dc77880
   channels rgb
   name Remove_rgb
   tile_color 0xaaaaaaff
+  selected true
   xpos 840
   ypos 326
   disable {{"(parent.rem_rgb) == 0"}}
@@ -214,9 +236,8 @@ push $N9dc77880
  }
  Output {
   name Output1
+  selected true
   xpos 840
   ypos 470
  }
 end_group
-
-
