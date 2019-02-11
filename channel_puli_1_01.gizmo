@@ -2,8 +2,8 @@ Group {
  name Channel_Puli
  tile_color 0xffae53ff
  selected true
- xpos -40
- ypos -298
+ xpos -150
+ ypos -274
  addUserKnob {20 tab1 l Settings}
  addUserKnob {26 info_title l Information}
  addUserKnob {26 info l "" +STARTLINE T "The node automacially sends the alpha\nvalue to the channel that is the input`s\nname and keeps the incoming alpha\nvalue on the alpha channel combined."}
@@ -13,6 +13,8 @@ Group {
  addUserKnob {6 rem_a_g l "Remove Alpha from Green" t "Allows you to remove the alpha value from the outcome that comes in on the Green input. " +STARTLINE}
  addUserKnob {6 rem_a_b l "Remove Alpha from Blue" t "Allows you to remove the alpha value from the outcome that comes in on the Blue input. " +STARTLINE}
  addUserKnob {6 rem_rgb l "Remove RGB" t "Allows you to remove the rgb value." +STARTLINE}
+ addUserKnob {6 shuff_a_rgb l "Shuffle Alpha to RGB" +STARTLINE}
+ addUserKnob {6 crop_inp l "Crop Inputs" +STARTLINE}
  addUserKnob {26 cr_ch l "Create new channels"}
  addUserKnob {41 out l "Red to" t "Allows you to shuffle the `alpha` on the `Red` input to a different channel. " T ShuffleCopy_r.out}
  addUserKnob {41 out_1 l "Green to" t "Allows you to shuffle the `alpha` on the `Green` input to a different channel. " T ShuffleCopy_g.out}
@@ -49,18 +51,27 @@ Group {
   xpos 400
   ypos -658
  }
+ Crop {
+  box {0 0 4096 2304}
+  name Crop
+  tile_color 0x888888ff
+  xpos 400
+  ypos -538
+  disable {{"(parent.crop_inp) == 0"}}
+ }
+ set C5b00670 [stack 0]
  Dot {
   name Dot3
   xpos 434
   ypos -294
  }
-set N21d2da0 [stack 0]
+set N5b0a840 [stack 0]
  Dot {
   name Dot6
   xpos 434
   ypos -78
  }
-set N21d7680 [stack 0]
+set N5b0f010 [stack 0]
  Shuffle {
   red black
   green black
@@ -69,9 +80,9 @@ set N21d7680 [stack 0]
   tile_color 0x3fffff
   label "\[value in 1]"
   xpos 400
-  ypos 230
+  ypos 224
  }
-set N21dbf40 [stack 0]
+set N5b138c0 [stack 0]
  Remove {
   channels alpha
   name Remove_a_b
@@ -89,18 +100,23 @@ push 0
   ypos -658
   number 1
  }
+clone $C5b00670 {
+  xpos 290
+  ypos -538
+  selected false
+ }
  Dot {
   name Dot2
   xpos 324
   ypos -342
  }
-set N21f9bd0 [stack 0]
+set N5b3ae20 [stack 0]
  Dot {
   name Dot5
   xpos 324
   ypos -126
  }
-set N21fe420 [stack 0]
+set N5b3f490 [stack 0]
  Shuffle {
   red black
   green alpha
@@ -109,9 +125,9 @@ set N21fe420 [stack 0]
   tile_color 0x1fff00ff
   label "\[value in 1]"
   xpos 290
-  ypos 158
+  ypos 152
  }
-set N2202d10 [stack 0]
+set N5b43d10 [stack 0]
  Remove {
   channels alpha
   name Remove_a_g
@@ -128,18 +144,23 @@ set N2202d10 [stack 0]
   ypos -658
   number 2
  }
+clone $C5b00670 {
+  xpos 180
+  ypos -538
+  selected false
+ }
  Dot {
   name Dot1
   xpos 214
   ypos -390
  }
-set N2220040 [stack 0]
+set N5b6b100 [stack 0]
  Dot {
   name Dot4
   xpos 214
   ypos -174
  }
-set N22248a0 [stack 0]
+set N5b6f8b0 [stack 0]
  Shuffle {
   red alpha
   green black
@@ -148,9 +169,9 @@ set N22248a0 [stack 0]
   tile_color 0xff0000ff
   label "\[value in 1]"
   xpos 180
-  ypos 86
+  ypos 80
  }
-set N2229150 [stack 0]
+set N5b74270 [stack 0]
  Remove {
   channels alpha
   name Remove_a_r
@@ -161,41 +182,41 @@ set N2229150 [stack 0]
  }
  Merge2 {
   inputs 3+1
-  operation plus
+  operation max
   name Merge_channel
   tile_color 0x777777ff
   label "\[value operation]"
-  note_font "Verdana Bold Bold Bold Bold Bold Bold"
+  note_font "Verdana Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold Bold"
   xpos 290
-  ypos 441
+  ypos 440
  }
-push $N21dbf40
-push $N2202d10
-push $N2229150
-push $N21d7680
+push $N5b138c0
+push $N5b43d10
+push $N5b74270
+push $N5b0f010
  Invert {
   name Invert_b
   tile_color 0x777777ff
   xpos 620
   ypos -88
  }
-push $N21fe420
+push $N5b3f490
  Invert {
   name Invert_g
   tile_color 0x777777ff
   xpos 620
   ypos -136
  }
-push $N22248a0
+push $N5b6f8b0
  Invert {
   name Invert_r
   tile_color 0x777777ff
   xpos 620
   ypos -184
  }
-push $N21d2da0
-push $N21f9bd0
-push $N2220040
+push $N5b0a840
+push $N5b3ae20
+push $N5b6b100
  Constant {
   inputs 0
   channels rgb
@@ -236,7 +257,7 @@ push $N2220040
   label "\[value out]"
   note_font Verdana
   xpos 840
-  ypos -303
+  ypos -304
  }
  ShuffleCopy {
   inputs 2
@@ -269,7 +290,6 @@ push $N2220040
   tile_color 0x3fffff
   label "\[value out]"
   note_font Verdana
-  selected true
   xpos 840
   ypos -88
  }
@@ -314,7 +334,7 @@ push $N2220040
   name Remove_a
   tile_color 0xaaaaaaff
   xpos 840
-  ypos 584
+  ypos 536
   disable {{"(parent.rem_alpha) == 0"}}
  }
  Remove {
@@ -323,18 +343,29 @@ push $N2220040
   tile_color 0xaaaaaaff
   label "\[value channels]"
   xpos 840
-  ypos 656
+  ypos 608
   disable {{"(parent.rem_rgb) == 0"}}
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle_a_rgb
+  tile_color 0x666666ff
+  label "\[value in 1]"
+  xpos 840
+  ypos 728
+  disable {{"(parent.shuff_a_rgb) == 0"}}
  }
  LayerContactSheet {
   name LayerContactSheet
   xpos 840
-  ypos 734
-  disable {{"(parent.show_lcs) == 0"}}
+  ypos 806
+  disable {{"(parent.show_lcs) == 0" x1024 1}}
  }
  Output {
   name Output1
   xpos 840
-  ypos 854
+  ypos 902
  }
 end_group
